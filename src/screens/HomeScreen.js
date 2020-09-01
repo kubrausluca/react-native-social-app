@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import * as firebae from 'firebase';
 
 export default class HomeScreen extends React.Component {
+    static navigationOptions = {
+        headerShown: false
+    };
+    
     state = {
         email: "",
         displayName: ""
@@ -21,7 +25,8 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Hi {this.state.email}!</Text>
+                <StatusBar barStyle = "light-content" backgroundColor = "white"></StatusBar>
+                <Text>Hi {this.state.displayName}!</Text>
 
                 <TouchableOpacity style={{marginTop: 32}} onPress = {this.signOutUser}>
                     <Text>Logout</Text>
