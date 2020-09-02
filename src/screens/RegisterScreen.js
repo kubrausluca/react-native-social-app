@@ -46,9 +46,19 @@ export default class RegisterScreen extends React.Component {
                     <Icon name='arrow-left' size={25} color='#fff'></Icon>
                 </TouchableOpacity>
 
-                <Text style={styles.greeting}>
-                    {'Hello!\nSign up to get started.'}
-                </Text>
+                <View style={{position:'absolute', top: 100, alignItems: 'center', width: "100%"}}>
+                    <Text style={styles.greeting}>
+                        {'Hello!\nSign up to get started.'}
+                    </Text>
+                    <TouchableOpacity style={styles.avatar}>
+                        <Icon 
+                            name = "plus" 
+                            size={32} 
+                            color='#fff'
+                            style={{marginTop:6, marginLeft: 2}}
+                        ></Icon>
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.errorMessage}>
                     {this.state.errorMessage && <Text style={styles.error}>{this.state.errorMessage}</Text>}
@@ -89,11 +99,17 @@ export default class RegisterScreen extends React.Component {
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress = {this.handleSignUp}>
+                <TouchableOpacity 
+                    style={styles.button} 
+                    onPress = {this.handleSignUp}
+                >
                     <Text style={{ color: "#fff", fontWeight: "500" }}>Sign up</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ alignSelf: "center", marginTop: 32}} onPress = {() => this.props.navigation.navigate('Login')}>
+                <TouchableOpacity 
+                    style={{ alignSelf: "center", marginTop: 32}} 
+                    onPress = {() => this.props.navigation.navigate('Login')}
+                >
                     <Text style={{ color: '#414959', fontSize: 13}}>
                         New to SocialApp? <Text style={{ fontWeight: '500', color: '#E9446A'}}>Login</Text>
                     </Text>
@@ -113,7 +129,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '400',
         textAlign: 'center',
-
+        color: '#fff',
     },
     errorMessage: {
         height: 72,
@@ -161,5 +177,14 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(21, 22, 48, 0.1)",
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        borderRadius: 50,
+        backgroundColor: '#E1E2E6',
+        marginTop: 48,
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
