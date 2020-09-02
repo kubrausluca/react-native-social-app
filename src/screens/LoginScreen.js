@@ -43,6 +43,11 @@ export default class LoginScreen extends React.Component {
                     source={require('../assets/authHeader3.png')} 
                     style={{position: 'absolute', bottom: -100, right: 0}}
                 ></Image>
+
+                {/* <Image 
+                    source={require('../assets/helloSlogan.png')} 
+                    style={{marginTop: -90, alignSelf: 'center'}}
+                ></Image> */}
                 
                 <Text style={styles.greeting}>
                     {'Hello again.\nWelcome back.'}

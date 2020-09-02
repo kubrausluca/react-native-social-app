@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, StatusBar } from 'react-native';
 import * as firebase from 'firebase';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class RegisterScreen extends React.Component {
     static navigationOptions = {
@@ -29,6 +30,22 @@ export default class RegisterScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar barStyle='dark-content' translucent backgroundColor='transparent'></StatusBar>
+                
+                <Image 
+                    source={require('../assets/authHeader2.png')} 
+                    style={{marginTop: -25, resizeMode: 'contain'}} 
+                ></Image>
+
+                <Image 
+                    source={require('../assets/authHeader3.png')} 
+                    style={{position: 'absolute', bottom: -100, right: 0}}
+                ></Image>
+
+                <TouchableOpacity style={styles.back} onPress={() => this.props.navigation.navigate('Login')}>
+                    <Icon name='arrow-left' size={25} color='#fff'></Icon>
+                </TouchableOpacity>
+
                 <Text style={styles.greeting}>
                     {'Hello!\nSign up to get started.'}
                 </Text>
@@ -92,7 +109,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     greeting: {
-        marginTop: 32,
+        marginTop: -32,
         fontSize: 18,
         fontWeight: '400',
         textAlign: 'center',
@@ -131,6 +148,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#E9446A',
         borderRadius: 4,
         height: 52,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    back: {
+        position: 'absolute',
+        top: 48,
+        left: 32,
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: "rgba(21, 22, 48, 0.1)",
         alignItems: 'center',
         justifyContent: 'center',
     }
