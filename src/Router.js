@@ -22,60 +22,85 @@ var firebaseConfig = FirebaseKeys;
 
 firebase.initializeApp(firebaseConfig);
 
-const AppTabNavigator = createBottomTabNavigator(
+const AppContainer = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="home" size={24} color={tintColor} />
+    default: createBottomTabNavigator(
+      {
+        Home: {
+          screen: HomeScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => <Icon name="home" size={24} color={tintColor} />
+          }
+        },
+        Message: {
+          screen: MessageScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => <Icon name="comments" size={24} color={tintColor} />
+          }
+        },
+        Post: {
+          screen: PostScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Icon 
+                name="plus-circle" 
+                size={32} 
+                color='#E9446A'
+                style={{
+                  shadowColor: '#E9446A',
+                  shadowOffset: { width:0, height: 0 },
+                  shadowRadius: 10,
+                  shadowOpacity: 0.3,  
+                }}
+    
+              />
+            )
+          }
+        },
+        Notification: {
+          screen: NotificationScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => <Icon name="bell" size={24} color={tintColor} labeled={false}/>
+          }
+        },
+        Profile: {
+          screen: ProfileScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => <Icon name="user-circle" size={24} color={tintColor} />
+          }
+        }
+      },
+      {
+        defaultNavigationOptions: {
+          tabBarOnPress: ({ navigation, defaultHandler }) => {
+            if (navigation.state.key === "Post") {
+              navigation.navigate("postModal");
+            } else {
+              defaultHandler();
+            }
+          }
+        }
+      },
+      {
+        tabBarOptions: {
+          showLabel: 'false',
+          showIcon: true,
+          activeTintColor: "#161F3D",
+          inactiveTintColor: "#B8B8C4",
+        }
       }
-    },
-    Message: {
-      screen: MessageScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="comments" size={24} color={tintColor} />
-      }
-    },
-    Post: {
-      screen: PostScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon 
-            name="plus-circle" 
-            size={42} 
-            color='#E9446A'
-            style={{
-              shadowColor: '#E9446A',
-              shadowOffset: { width:0, height: 0 },
-              shadowRadius: 10,
-              shadowOpacity: 0.3,  
-            }}
-
-          />
-        )
-      }
-    },
-    Notification: {
-      screen: NotificationScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="bell" size={24} color={tintColor} />
-      }
-    },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="user-circle" size={24} color={tintColor} />
-      }
+    ),
+    postModal: {
+      screen: PostScreen
     }
   },
   {
-    tabBarOptions: {
-      activeTintColor: "#161F3D",
-      inactiveTintColor: "#B8B8C4",
-      showLabel: false,
-    }
+    mode: "modal",
+    headerMode: "none",
+    // initialRouteName: "postModal",
   }
 )
+
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
@@ -86,7 +111,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Loading: LoadingScreen,
-      App: AppTabNavigator,
+      App: AppContainer,
       Auth: AuthStack
     },
     {
